@@ -30,7 +30,7 @@ variable "private_subnet_cidrs" {
 variable "enable_nat_gateway" {
   description = "Provision a NAT gateway for private subnet internet access"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "enable_dns_hostnames" {
