@@ -1,6 +1,16 @@
+# TERRAGRUNT ROOT - terraboard-infra-example
+# Root configuration: remote state, provider, and context locals inherited by all children.
+
 locals {
   region     = get_env("AWS_DEFAULT_REGION", "us-east-1")
   account_id = get_aws_account_id()
+
+  # Context values propagated to every child module via inputs
+  namespace   = "7pi"
+  tenant      = "terraboard"
+  stage       = "demo"
+  environment = "demo"
+  tags        = { ManagedBy = "TerraBoard" }
 }
 
 remote_state {
@@ -18,7 +28,6 @@ remote_state {
     encrypt        = true
     dynamodb_table = "terraboard-tflock"
 
-    # Auto-create the bucket and lock table if they don't exist
     s3_bucket_tags = {
       ManagedBy = "TerraBoard"
     }

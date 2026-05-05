@@ -1,9 +1,11 @@
+# iam-role/outputs.tf
+
 output "role_arn" {
   description = "ARN of the created IAM role"
-  value       = aws_iam_role.this.arn
+  value       = try(aws_iam_role.this[0].arn, null)
 }
 
 output "role_name" {
   description = "Name of the created IAM role"
-  value       = aws_iam_role.this.name
+  value       = try(aws_iam_role.this[0].name, null)
 }

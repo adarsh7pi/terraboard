@@ -1,11 +1,13 @@
+# vpc/outputs.tf
+
 output "vpc_id" {
   description = "ID of the VPC"
-  value       = aws_vpc.this.id
+  value       = try(aws_vpc.this[0].id, null)
 }
 
 output "vpc_cidr" {
   description = "CIDR block of the VPC"
-  value       = aws_vpc.this.cidr_block
+  value       = try(aws_vpc.this[0].cidr_block, null)
 }
 
 output "public_subnet_ids" {
@@ -20,10 +22,10 @@ output "private_subnet_ids" {
 
 output "internet_gateway_id" {
   description = "ID of the Internet Gateway"
-  value       = aws_internet_gateway.this.id
+  value       = try(aws_internet_gateway.this[0].id, null)
 }
 
 output "nat_gateway_id" {
   description = "ID of the NAT Gateway (if enabled)"
-  value       = var.enable_nat_gateway ? aws_nat_gateway.this[0].id : null
+  value       = try(aws_nat_gateway.this[0].id, null)
 }
